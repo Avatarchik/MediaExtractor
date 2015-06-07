@@ -1,6 +1,7 @@
 package com.myriadmobile.mediaextractor.mime;
 
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.webkit.MimeTypeMap;
 
 import com.myriadmobile.mediaextractor.scheme.Type;
@@ -16,8 +17,9 @@ public class FileMimeTypeResolver implements MimeTypeResolver {
         }
     }
 
-    @Override
+    @Override @Nullable
     public String resolveMimeType(Uri uri) throws UnsupportedSchemeException {
-        return MimeTypeMap.getFileExtensionFromUrl(uri.toString());
+        String extension = MimeTypeMap.getFileExtensionFromUrl(uri.toString());
+        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
     }
 }
