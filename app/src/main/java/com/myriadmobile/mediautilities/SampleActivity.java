@@ -8,8 +8,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.myriadmobile.mediaextractor.file.FileResolver;
 import com.myriadmobile.mediaextractor.mime.ContentMimeTypeResolver;
+import com.myriadmobile.mediaextractor.mime.MimeTypeResolver;
 import com.myriadmobile.mediaextractor.scheme.UriUtils;
+
+import java.io.File;
 
 public class SampleActivity extends AppCompatActivity {
 
@@ -18,7 +22,8 @@ public class SampleActivity extends AppCompatActivity {
 
     private ImageView target;
 
-
+    private MimeTypeResolver contentTypeResolver = new ContentMimeTypeResolver(this);
+    private final FileResolver fileResolver = new FileResolver(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +56,11 @@ public class SampleActivity extends AppCompatActivity {
             galleryResult = intentFactory.onGalleryResult(resultCode, data);
             target.setImageURI(galleryResult);
 
+            galleryResult = Uri.parse("yahoo.com");
             try {
-                Log.wtf("result", UriUtils.getUriType(galleryResult).getScheme());
+                File f = fileResolver.resolve(galleryResult);
+                Log.wtf("path", galleryResult.getPath());
+                Log.wtf("size", f.length() + "");
             } catch (Exception e) {
                 e.printStackTrace();
             }
