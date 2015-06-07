@@ -101,6 +101,12 @@ public class IntentFactory {
         return galleryIntent;
     }
 
+    public Intent getGalleryVideo() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK);
+        galleryIntent.setType("video/*");
+        return galleryIntent;
+    }
+
     @Nullable
     public Uri onGalleryResult(int resultCode, Intent data) {
         Uri payload = null;
