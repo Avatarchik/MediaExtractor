@@ -7,7 +7,7 @@ public enum Type {
     CONTENT(ContentResolver.SCHEME_CONTENT),
     FILE(ContentResolver.SCHEME_FILE);
 
-    private String name;
+    private final String name;
 
     Type(String name) {
         this.name = name;
