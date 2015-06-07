@@ -34,7 +34,7 @@ public class FileResolver {
     }
 
     /**
-     *
+     * Attempt to write contents of provided Uri to File.
      * @param uri The desired URI to open.
      * @return File object representing provided {@param uri} if existent
      * @throws IOException
