@@ -2,6 +2,7 @@ package com.myriadmobile.mediaextractor.mime;
 
 import android.content.Context;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 
 import com.myriadmobile.mediaextractor.scheme.Type;
 import com.myriadmobile.mediaextractor.scheme.UnsupportedSchemeException;
@@ -22,7 +23,7 @@ public class ContentMimeTypeResolver implements MimeTypeResolver {
         }
     }
 
-    @Override
+    @Override @Nullable
     public String resolveMimeType(Uri uri) throws UnsupportedSchemeException {
         checkUri(uri);
         return context.getContentResolver().getType(uri);
