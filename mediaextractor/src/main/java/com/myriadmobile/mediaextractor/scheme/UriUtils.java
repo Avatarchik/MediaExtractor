@@ -16,4 +16,14 @@ public class UriUtils {
         }
     }
 
+    @Nullable
+    public static Type getUriTypeChecked(@Nullable Uri uri) {
+        Type uriType = null;
+        try {
+            uriType = getUriType(uri);
+        } catch (UnsupportedSchemeException e) {
+            e.printStackTrace();
+        }
+        return uriType;
+    }
 }
