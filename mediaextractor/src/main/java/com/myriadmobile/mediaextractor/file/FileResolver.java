@@ -6,6 +6,10 @@ import android.os.ParcelFileDescriptor;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.myriadmobile.mediaextractor.extension.ExtensionTypeResolver;
+import com.myriadmobile.mediaextractor.extension.FusedExtensionResolver;
+import com.myriadmobile.mediaextractor.scheme.UnsupportedSchemeException;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -18,9 +22,11 @@ public class FileResolver {
     private static final String TAG = FileResolver.class.getName();
     private static final String READ_FLAG = "r";
     private final Context context;
+    private final FusedExtensionResolver extensionResolver;
 
     public FileResolver(Context context) {
         this.context = context;
+        this.extensionResolver = new FusedExtensionResolver(context);
     }
 
     /**
@@ -54,8 +60,11 @@ public class FileResolver {
         File temp = null;
         if(pfd != null) {
 
-            // TODO: write with correct extension instead of static *.jpg
-            temp = new File(context.getCacheDir(), "temp.jpg");
+            try {
+                temp = new File(context.getCacheDir(), "temp." + extensionResolver.resolveExtension(uri));
+            } catch (UnsupportedSchemeException e) {
+                e.printStackTrace();
+            }
 
             // TODO: move this into it's own Thread w/ callbacks when ready.
             // Allocate streams and channels to facilitate streaming of bytes.
