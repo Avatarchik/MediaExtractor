@@ -57,6 +57,7 @@ public class FileResolver {
             // TODO: write with correct extension instead of static *.jpg
             temp = new File(context.getCacheDir(), "temp.jpg");
 
+            // TODO: move this into it's own Thread w/ callbacks when ready.
             // Allocate streams and channels to facilitate streaming of bytes.
             FileChannel from = new FileInputStream(pfd.getFileDescriptor()).getChannel();
             FileChannel to = new FileOutputStream(temp.getPath()).getChannel();
